@@ -26,11 +26,11 @@ jobs: # a collection of steps
       #      - ~/.m2
       #    key: circleci-demo-java-spring-{{ checksum "pom.xml" }}
       
-     # - snyk/scan:
-     #     fail-on-issues: false
-     #     monitor-on-build: true
-     #     project: '${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BRANCH}-app'
-     #     severity-threshold: high
-     #     token-variable: SNYK_TOKEN
+      - snyk/scan:
+          fail-on-issues: false
+          monitor-on-build: true
+          project: '${CIRCLE_PROJECT_REPONAME}/${CIRCLE_BRANCH}-app'
+          severity-threshold: high
+          token-variable: SNYK_TOKEN
       
       - run: mvn install
