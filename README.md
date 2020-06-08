@@ -1,4 +1,4 @@
-![Java CI with Maven](https://github.com/omearaj/java-goof/workflows/Java%20CI%20with%20Maven/badge.svg)
+![Java CI with Maven](https://github.com/omearaj/java-goof/workflows/Java%20CI%20with%20Maven/badge.svg?branch=master)
 
 ## Java Goof
 
