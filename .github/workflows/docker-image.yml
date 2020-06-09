@@ -13,14 +13,14 @@ env:
 
 jobs:
 
-  build:
+  #build:
 
-    runs-on: ubuntu-latest
+  #  runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+   # steps:
+   # - uses: actions/checkout@v2
+   # - name: Build the Docker image
+   #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
   # Run tests.
   # See also https://docs.docker.com/docker-hub/builds/automated-testing/
   test:
@@ -53,7 +53,7 @@ jobs:
         run: docker build . --file Dockerfile --tag $IMAGE_NAME
 
       - name: Log into registry
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login hub.docker.com -u ${{ secrets.DOCKER_USERID }} --password ${{ secrets.DOCKER_KEY }}
+        run: echo "${{ secrets.DOCKER_KEY }}" | docker login registry.hub.docker.com -u ${{ secrets.DOCKER_USERID }} --password-stdin
 
       - name: Push image
         run: |
