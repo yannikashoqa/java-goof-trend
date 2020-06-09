@@ -10,20 +10,28 @@ env:
   # TODO: Change variable to your image's name.
   IMAGE_NAME: java-goof
   IMAGE:VERSION: $(date +%s)
+  SNYK_API_TOKEN: ${{ secrets.SNYK_API_TOKEN }}
 
 jobs:
 
-  #build:
+  build:
 
-  #  runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
 
-   # steps:
-   # - uses: actions/checkout@v2
-   # - name: Build the Docker image
-   #   run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Build with Maven & Snyk
+      run: echo SNYK_API_TOKEN
+      run: mvn -B install --file pom.xml
   # Run tests.
   # See also https://docs.docker.com/docker-hub/builds/automated-testing/
   test:
+    needs: test
+    
     runs-on: ubuntu-latest
 
     steps:
