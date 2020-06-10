@@ -23,4 +23,4 @@ jobs:
     - name: Build with Maven
       env:
         SNYK_API_TOKEN: ${{ secrets.SNYK_API_TOKEN }} 
-      run: mvn snyk:monitor --file pom.xml
+      run: mvn install --file pom.xml
