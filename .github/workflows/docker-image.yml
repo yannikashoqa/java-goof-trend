@@ -9,7 +9,7 @@ on:
 env:
   # TODO: Change variable to your image's name.
   IMAGE_NAME: java-goof
-  IMAGE:VERSION: $(date +%s)
+  DOCKER_REPO: ${{ secrets.DOCKER_USERID }}
   SNYK_API_TOKEN: ${{ secrets.SNYK_API_TOKEN }}
 
 jobs:
@@ -25,7 +25,7 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Maven & Snyk
-      run: echo $SNYK_API_TOKEN; mvn -B install --file pom.xml
+      run: echo $SNYK_API_TOKEN; mvn install --file pom.xml
   # Run tests.
   # See also https://docs.docker.com/docker-hub/builds/automated-testing/
   test:
@@ -65,7 +65,7 @@ jobs:
       - name: Push image
         run: |
           #IMAGE_ID=hub.docker.com/${{ secrets.DOCKER_USERID }}/$IMAGE_NAME
-          IMAGE_ID=registry.hub.docker.com/omearaj/$IMAGE_NAME
+          IMAGE_ID=registry.hub.docker.com/$DOCKER_REPO/$IMAGE_NAME
           
           # Change all uppercase to lowercase
           #IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
