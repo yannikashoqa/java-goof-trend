@@ -25,7 +25,9 @@ jobs:
     - name: Build with Maven & Snyk
       env:
         SNYK_API_TOKEN: ${{ secrets.SNYK_API_TOKEN }} 
-      run: mvn install --file pom.xml -Prun-its
+      run: |
+        mvn snyk:monitor
+        mvn install --file pom.xml -Prun-its
   # Run tests.
   # See also https://docs.docker.com/docker-hub/builds/automated-testing/
   test:
