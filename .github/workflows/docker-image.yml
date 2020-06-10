@@ -25,11 +25,11 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Maven & Snyk
-      run: mvn -B install --file pom.xml
+      run: echo SNYK_API_TOKEN; mvn -B install --file pom.xml
   # Run tests.
   # See also https://docs.docker.com/docker-hub/builds/automated-testing/
   test:
-    needs: test
+    needs: build
     
     runs-on: ubuntu-latest
 
