@@ -67,7 +67,7 @@ jobs:
         env: 
           DOCKER_REPO: ${{ secrets.DOCKER_USERID }}
         run: |
-          IMAGE_ID=${{ CONTAINER_REGISTRY_URL}}/$DOCKER_REPO/$IMAGE_NAME
+          IMAGE_ID=${{ CONTAINER_REGISTRY_URL }}/$DOCKER_REPO/$IMAGE_NAME
           
           # Change all uppercase to lowercase
           #IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
