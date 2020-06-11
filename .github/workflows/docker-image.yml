@@ -30,24 +30,23 @@ jobs:
         mvn install --file pom.xml -Prun-its
   # Run tests.
   # See also https://docs.docker.com/docker-hub/builds/automated-testing/
-  test:
-    needs: build
+#  test:
+#    needs: build
     
-    runs-on: ubuntu-latest
+#    runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Run tests
-        run: |
-          if [ -f docker-compose.test.yml ]; then
-            docker-compose --file docker-compose.test.yml build
-            docker-compose --file docker-compose.test.yml run sut
-          else
-            docker build . --file Dockerfile
-          fi
-  # Push image to GitHub Packages.
-  # See also https://docs.docker.com/docker-hub/builds/
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - name: Run tests
+#        run: |
+#          if [ -f docker-compose.test.yml ]; then
+#            docker-compose --file docker-compose.test.yml build
+#            docker-compose --file docker-compose.test.yml run sut
+#          else
+#            docker build . --file Dockerfile
+#          fi
+  # Push image to Container Registry
   push:
     # Ensure test job passes before pushing image.
     needs: test
@@ -62,13 +61,13 @@ jobs:
         run: docker build . --file Dockerfile --tag $IMAGE_NAME
 
       - name: Log into registry
-        run: echo "${{ secrets.DOCKER_KEY }}" | docker login registry.hub.docker.com -u ${{ secrets.DOCKER_USERID }} --password-stdin
+        run: echo "${{ secrets.DOCKER_KEY }}" | docker login ${{ CONTAINER_REGISTRY_URL }} -u ${{ secrets.DOCKER_USERID }} --password-stdin
 
       - name: Push image
         env: 
           DOCKER_REPO: ${{ secrets.DOCKER_USERID }}
         run: |
-          IMAGE_ID=registry.hub.docker.com/$DOCKER_REPO/$IMAGE_NAME
+          IMAGE_ID=${{ CONTAINER_REGISTRY_URL}}/$DOCKER_REPO/$IMAGE_NAME
           
           # Change all uppercase to lowercase
           #IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
