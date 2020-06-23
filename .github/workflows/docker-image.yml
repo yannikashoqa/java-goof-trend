@@ -53,8 +53,9 @@ jobs:
           DOCKER_REPO: ${{ secrets.DOCKER_USERID }}
         run: |
           IMAGE_ID=${{ secrets.CONTAINER_REGISTRY_URL }}/$DOCKER_REPO/$IMAGE_NAME
-          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
+          echo $IMAGE_PATH
+          docker tag $IMAGE_NAME $IMAGE_PATH
+          docker push $IMAGE_PATH
 
   image-test:
     needs: push
@@ -65,7 +66,8 @@ jobs:
         uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.2
         with:
           # Mandatory
-          DSSC_IMAGE_NAME: $IMAGE_PATH
+          DSSC_IMAGE_NAME: registry.hub.docker.com/raphabot/java-goof
+          # DSSC_IMAGE_NAME: $IMAGE_PATH
           DSSC_SMARTCHECK_HOST: demo.dssmartcheck.com
           DSSC_SMARTCHECK_USER: endtoenddemo
           DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
