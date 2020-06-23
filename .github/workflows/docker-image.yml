@@ -28,24 +28,7 @@ jobs:
       run: |
         mvn snyk:monitor
         mvn install --file pom.xml -Prun-its
-  # Run tests.
-  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
-#  test:
-#    needs: build
-    
-#    runs-on: ubuntu-latest
-
-#    steps:
-#      - uses: actions/checkout@v2
-#
-#      - name: Run tests
-#        run: |
-#          if [ -f docker-compose.test.yml ]; then
-#            docker-compose --file docker-compose.test.yml build
-#            docker-compose --file docker-compose.test.yml run sut
-#          else
-#            docker build . --file Dockerfile
-#          fi
+        
   # Push image to Container Registry
   push:
     # Ensure test job passes before pushing image.
@@ -81,3 +64,32 @@ jobs:
           echo VERSION=$VERSION
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
+
+  image-test:
+    needs: push
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    steps:
+      - name: Cloud One Container Security Scan Action
+        uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@version*
+        env: 
+          DOCKER_REPO: ${{ secrets.DOCKER_USERID }}
+          IMAGE_ID: ${{ secrets.CONTAINER_REGISTRY_URL }}/$DOCKER_REPO/$IMAGE_NAME
+          VERSION: $(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+        with:
+          # Mandatory
+          DSSC_IMAGE_NAME: $IMAGE_ID:$VERSION
+          DSSC_SMARTCHECK_HOST: demo.dssmartcheck.com
+          DSSC_SMARTCHECK_USER: endtoenddemo
+          DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
+          #DSSC_IMAGE_PULL_AUTH: {"username":"<user>","password":"<password>"}
+
+          # Optional
+          DSSC_INSECURE_SKIP_TLS_VERIFY: true
+          DSSC_INSECURE_SKIP_REGISTRY_TLS_VERIFY: false
+          # DSSC_PREREGISTRY_SCAN: false
+          # DSSC_PREREGISTRY_HOST: myorg.com
+          # DSSC_PREREGISTRY_USER: admin
+          # DSSC_PREREGISTRY_PASSWORD: 12345
+          # DSSC_RESULTS_FILE: /results.json
+          # DSSC_FINDINGS_THRESHOLD: '{"malware": 100, "vulnerabilities": { "defcon1": 100, "critical": 100, "high": 100 }, "contents": { "defcon1": 100, "critical": 100, "high": 100 }, "checklists": { "defcon1": 100, "critical": 100, "high": 100 }}'
