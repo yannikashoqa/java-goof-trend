@@ -51,17 +51,7 @@ jobs:
           DOCKER_REPO: ${{ secrets.DOCKER_USERID }}
         run: |
           IMAGE_ID=${{ secrets.CONTAINER_REGISTRY_URL }}/$DOCKER_REPO/$IMAGE_NAME
-          
-          # Change all uppercase to lowercase
-          #IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          # Strip git ref prefix from version
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-          # Strip "v" prefix from tag name
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-          # Use Docker `latest` tag convention
-          [ "$VERSION" == "master" ] && VERSION=latest
-          echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
+          VERSION=latest
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
 
@@ -75,11 +65,10 @@ jobs:
         env: 
           DOCKER_REPO: ${{ secrets.DOCKER_USERID }}
           IMAGE_ID: ${{ secrets.CONTAINER_REGISTRY_URL }}/$DOCKER_REPO/$IMAGE_NAME
-          VERSION: $(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
+          VERSION: latest
         with:
           # Mandatory
-          # DSSC_IMAGE_NAME: $IMAGE_ID:$VERSION
-          DSSC_IMAGE_NAME: registry.hub.docker.com/raphabot/java-goof:latest
+          DSSC_IMAGE_NAME: $IMAGE_ID:$VERSION
           DSSC_SMARTCHECK_HOST: demo.dssmartcheck.com
           DSSC_SMARTCHECK_USER: endtoenddemo
           DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
