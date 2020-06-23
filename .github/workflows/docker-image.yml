@@ -10,6 +10,7 @@ env:
   # TODO: Change variable to your image's name.
   IMAGE_NAME: java-goof
   VERSION: latest
+  IMAGE_PATH: ${{ secrets.CONTAINER_REGISTRY_URL }}/${{ secrets.DOCKER_USERID }}/$IMAGE_NAME:$VERSION
 
 jobs:
 
@@ -62,14 +63,9 @@ jobs:
     steps:
       - name: Cloud One Container Security Scan Action
         uses: felipecosta09/Deep-Security-Smart-Check-Scan-Action@v1.0.2
-        env: 
-          DOCKER_REPO: ${{ secrets.DOCKER_USERID }}
-          IMAGE_ID: ${{ secrets.CONTAINER_REGISTRY_URL }}/$DOCKER_REPO/$IMAGE_NAME
-          VERSION: latest
-          TEST: '${{ secrets.CONTAINER_REGISTRY_URL }}/${{ secrets.DOCKER_USERID }}/java-goof:$VERSION'
         with:
           # Mandatory
-          DSSC_IMAGE_NAME: $TEST
+          DSSC_IMAGE_NAME: $IMAGE_PATH
           DSSC_SMARTCHECK_HOST: demo.dssmartcheck.com
           DSSC_SMARTCHECK_USER: endtoenddemo
           DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
