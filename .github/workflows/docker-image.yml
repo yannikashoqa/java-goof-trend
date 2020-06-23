@@ -63,6 +63,7 @@ jobs:
           echo IMAGE_ID=$IMAGE_ID
           echo VERSION=$VERSION
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
+          docker login --username ${{ secrets.DOCKER_HUB_USERNAME }} --password ${{ secrets.secrets.DOCKER_HUB_PASSWORD }}
           docker push $IMAGE_ID:$VERSION
 
   image-test:
