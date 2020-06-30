@@ -1,0 +1,33 @@
+#FROM maven:3-jdk-8-slim
+#
+#RUN mkdir /usr/src/goof
+#RUN mkdir /tmp/extracted_files
+#COPY . /usr/src/goof
+#WORKDIR /usr/src/goof
+#
+#ENV CATALINA_OPTS "-javaagent:/trend_app_protect-4.2.0.jar -Dcom.trend.app_protect.config.file=/trend_app_protect.properties"
+#
+#RUN mvn install
+#
+#EXPOSE 8080
+#ENTRYPOINT ["mvn", "tomcat7:run"]
+#
+FROM maven:3-jdk-8-slim
+
+RUN mkdir /usr/src/goof
+RUN mkdir /tmp/extracted_files
+COPY . /usr/src/goof
+WORKDIR /usr/src/goof
+
+ADD https://files.trendmicro.com/products/CloudOne/ApplicationSecurity/1.0.2/agent-java/trend_app_protect-4.2.0.jar trend_app_protect-4.2.0.jar
+CMD java -javaagent:trend_app_protect-4.2.0.jar
+
+#ENV CATALINA_OPTS="-javaagent:/trend_app_protect-4.2.0.jar"
+ENV TREND_AP_KEY=8702b8d8-5b91-46d7-944a-d0472bb033ab
+ENV TREND_AP_SECRET=2778d471-f8ff-4b24-ba07-d1c2f5346db0
+ENV TREND_AP_LOG_FILE=STDERR
+
+RUN mvn install
+
+EXPOSE 8080
+ENTRYPOINT ["mvn", "tomcat7:run"]
