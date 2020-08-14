@@ -1,9 +1,9 @@
 ![Java CI with Maven](https://github.com/omearaj/java-goof/workflows/Java%20CI%20with%20Maven/badge.svg?branch=master)
 
-## Hello BNY Mellon!
+## Hello!
 ## Java Goof
 
-A vulnerable by design demo application, initially based on [Ben Hassine](https://github.com/benas/)'s [TodoMVC](https://github.com/benas/todolist-mvc), and protected by Cloud One Application Security. 
+A protect by design demo application, initially based on [Ben Hassine](https://github.com/benas/)'s [TodoMVC](https://github.com/benas/todolist-mvc), and protected by Cloud One Application Security. 
 
 The goal of this application is to demonstrate through example how to find, exploit and fix vulnerable Maven packages. 
 
