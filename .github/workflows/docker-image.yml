@@ -69,7 +69,7 @@ jobs:
           # Mandatory
           DSSC_IMAGE_NAME: registry.hub.docker.com/raphabot/java-goof # Change with your image path.
           # DSSC_IMAGE_NAME: $IMAGE_PATH
-          DSSC_SMARTCHECK_HOST: demo.dssmartcheck.com
+          DSSC_SMARTCHECK_HOST: 35.227.151.86
           DSSC_SMARTCHECK_USER: endtoenddemo
           DSSC_SMARTCHECK_PASSWORD: ${{ secrets.DSSC_SMARTCHECK_PASSWORD }}
           DSSC_IMAGE_PULL_AUTH: '{"username": "${{ secrets.DOCKER_USERID }}","password": "${{ secrets.DOCKER_KEY }}"}'
