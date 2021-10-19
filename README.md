@@ -3,7 +3,6 @@
 ## Hello!
 ## Java Goof
 
-Hey Japa!!
 
 A protect by design demo application, initially based on [Ben Hassine](https://github.com/benas/)'s [TodoMVC](https://github.com/benas/todolist-mvc), and protected by Cloud One Application Security. 
 
