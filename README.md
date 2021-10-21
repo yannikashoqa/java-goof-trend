@@ -29,5 +29,8 @@ docker-compose up --build
 docker-compose down
 ```
 
+## Exploiting the app
+Check the /exploits directory for some ready-to-use exploits.
+
 ## License
 This repo is available released under the [MIT License](http://opensource.org/licenses/mit-license.php/)..
