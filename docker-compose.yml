@@ -2,7 +2,7 @@ version: "2"
 services:
   javagoof:
     build: .
-    container_name: javagoof
+    container_name: javagoof-c1as
     environment:
       - DOCKER=1
     ports:
