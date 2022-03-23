@@ -39,4 +39,4 @@ For bug reports or feature requests, please open an issue. You are welcome to co
 Official support from Trend Micro is not available. Individual contributors may be Trend Micro employees, but are not official support.
 
 ## License
-This repo is available released under the [MIT License](http://opensource.org/licenses/mit-license.php/)..
+This repo is available released under the [MIT License](http://opensource.org/licenses/mit-license.php/).
