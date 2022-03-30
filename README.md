@@ -12,7 +12,7 @@ This repo is still incomplete and is meant solely for educational demonstrations
 
 ## Build and run Todolist MVC
 
-(from the original README)
+(from the original README.md)
 
 *Note that to run locally, you need JDK 8.*
 
