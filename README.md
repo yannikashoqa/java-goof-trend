@@ -1,7 +1,6 @@
 ![Java CI with Maven](https://github.com/omearaj/java-goof/workflows/Java%20CI%20with%20Maven/badge.svg?branch=master)
 
 ## (Protected) Java Goof
-##
 
 A protect by design demo application, initially based on [Ben Hassine](https://github.com/benas/)'s [TodoMVC](https://github.com/benas/todolist-mvc), and protected by Cloud One Application Security. 
 
